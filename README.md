@@ -100,51 +100,59 @@ Both channels communicate with the same CareerPilot backend through Caspian.
 # 🏗️ Architecture
 
 ```text
-                    ┌───────────────┐
-                    │    Telegram   │
-                    └───────┬───────┘
-                            │
-                    ┌───────▼───────┐
-                    │    Discord    │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │    Caspian    │
-                    │ Communication │
-                    │     Layer     │
-                    └───────┬───────┘
-                            │
-                            ▼
-                 ┌────────────────────┐
-                 │ Shared Message     │
-                 │ Handler            │
-                 └─────────┬──────────┘
-                           │
-                           ▼
-                 ┌────────────────────┐
-                 │   CrewAI API       │
-                 │                    │
-                 │ CareerPilot        │
-                 │ Workflow           │
-                 └─────────┬──────────┘
-                           │
-             ┌─────────────┼─────────────┐
-             ▼             ▼             ▼
-       Intent Router   Career Advisor   Interview Coach
-             │             │             │
-             └─────────────┼─────────────┘
-                           ▼
-                 ┌────────────────────┐
-                 │ Response Formatter │
-                 └─────────┬──────────┘
-                           │
-                           ▼
-                    Caspian Response
-                           │
-                 ┌─────────┴─────────┐
-                 ▼                   ▼
-             Telegram             Discord
+                          USER INPUT
+                    ┌─────────┴─────────┐
+                    │                   │
+                    ▼                   ▼
+             ┌─────────────┐     ┌─────────────┐
+             │  Telegram   │     │   Discord   │
+             │    User     │     │    User     │
+             └──────┬──────┘     └──────┬──────┘
+                    │                   │
+                    └─────────┬─────────┘
+                              ▼
+                    ┌───────────────────┐
+                    │      Caspian      │
+                    │ Communication     │
+                    │      Layer        │
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │ Shared Message    │
+                    │     Handler       │
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │     CrewAI API    │
+                    │                   │
+                    │  CareerPilot      │
+                    │     Workflow      │
+                    └─────────┬─────────┘
+                              │
+             ┌────────────────┼────────────────┐
+             ▼                ▼                ▼
+      Intent Router    Career Advisor    Interview Coach
+             │                │                │
+             └────────────────┼────────────────┘
+                              ▼
+                    ┌───────────────────┐
+                    │ Response Formatter│
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │  Response through │
+                    │      Caspian      │
+                    └─────────┬─────────┘
+                              │
+                    ┌─────────┴─────────┐
+                    ▼                   ▼
+              ┌───────────┐       ┌───────────┐
+              │ Telegram  │       │  Discord  │
+              │   User    │       │   User    │
+              └───────────┘       └───────────┘
 ```
 
 ---
